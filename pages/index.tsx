@@ -43,7 +43,6 @@ export default function Index({
   dataMainArticle,
   dataTypeCar,
   dataCarofTheMonth,
-  dataAnnouncementBox,
 }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   const isMobile = useIsMobile()
   const { saveUTM } = useContext(ConfigContext) as ConfigContextType
@@ -120,21 +119,7 @@ export default function Index({
             onSearchClick={() => setModalType('modalSearch')}
           />
           <LocationList onClick={() => setModalType('modalLocationList')} />
-          {!isMobile && isAnnouncementBoxShow && (
-            <AnnouncementBox
-              data={dataAnnouncementBox}
-              onCloseButton={() => setIsAnnouncementBoxShow(false)}
-            />
-          )}
         </div>
-        {isAnnouncementBoxShow && isMobile && (
-          <div className={styles.sticky}>
-            <AnnouncementBox
-              data={dataAnnouncementBox}
-              onCloseButton={() => setIsAnnouncementBoxShow(false)}
-            />
-          </div>
-        )}
         <Floating onClickImage={() => setModalType('modalVideo')} />
         <div
           className={
@@ -209,7 +194,6 @@ export async function getServerSideProps({ res }: any) {
       dataMainArticle,
       dataTypeCar,
       dataCarofTheMonth,
-      dataAnnouncementBox,
     ] = await Promise.all([
       bannerRes.data,
       menuRes.data,
@@ -221,7 +205,6 @@ export async function getServerSideProps({ res }: any) {
       mainArticleRes,
       typeCarRes,
       carofTheMonthRes.data,
-      annoucementBoxRes.data,
     ])
     return {
       props: {
@@ -235,7 +218,6 @@ export async function getServerSideProps({ res }: any) {
         dataMainArticle,
         dataTypeCar,
         dataCarofTheMonth,
-        dataAnnouncementBox,
       },
     }
   } catch (error) {
