@@ -31,6 +31,7 @@ import { useContext, useEffect, useState } from 'react'
 import amplitude from 'amplitude-js'
 import { useIsMobile, utmCollector } from 'utils'
 import { ConfigContext, ConfigContextType } from 'services/context'
+import { useRouter } from 'next/router'
 
 export default function Index({
   dataBanner,
@@ -43,7 +44,8 @@ export default function Index({
   dataMainArticle,
   dataTypeCar,
   dataCarofTheMonth,
-}: InferGetServerSidePropsType<typeof getServerSideProps>) {
+  dataMeta,
+}: InferGetServerSidePropsType<any>) {
   const isMobile = useIsMobile()
   const { saveUTM } = useContext(ConfigContext) as ConfigContextType
   const [modalType, setModalType] = useState<string>('')
@@ -104,15 +106,102 @@ export default function Index({
     }
   }
 
+  const dataMetas = [
+    {
+      id: 33,
+      attributes: {
+        meta_title:
+          'Daihatsu All New Xenia 2022 Harga OTR Cicilan Kredit & Spesifikasi | SEVA',
+        meta_description:
+          'Beli mobil Daihatsu All New Xenia terbaru dengan dengan Instant Approval*. Proses Aman & Mudah✅ Terintegrasi dengan ACC & TAF✅ SEVA member of ASTRA',
+        createdAt: '2022-05-19T06:31:44.361Z',
+        updatedAt: '2022-09-21T09:55:25.264Z',
+        publishedAt: '2022-05-19T06:31:45.924Z',
+        location_page3: 'CarModelSELECTMASTERMODEL',
+      },
+    },
+    {
+      id: 49,
+      attributes: {
+        meta_title:
+          'BMW X7 xDrive40i Opulence 2022 Harga OTR Cicilan Kredit & Spesifikasi | SEVA',
+        meta_description:
+          'Beli mobil BMW X7 xDrive40i Opulence terbaru dengan dengan Instant Approval*. Proses Aman & Mudah✅ Terintegrasi dengan ACC & TAF✅ SEVA member of ASTRA',
+        createdAt: '2022-05-19T06:53:15.377Z',
+        updatedAt: '2022-09-21T10:00:50.917Z',
+        publishedAt: '2022-05-19T06:53:17.010Z',
+        location_page3: 'CarModelSELECTMASTERMODEL',
+      },
+    },
+    {
+      id: 30,
+      attributes: {
+        meta_title:
+          'Daihatsu Rocky 2022 Harga OTR Cicilan Kredit & Spesifikasi | SEVA',
+        meta_description:
+          'Beli mobil Daihatsu Rocky terbaru dengan dengan Instant Approval*. Proses Aman & Mudah✅ Terintegrasi dengan ACC & TAF✅ SEVA member of ASTRA',
+        createdAt: '2022-05-19T03:27:29.761Z',
+        updatedAt: '2022-09-21T09:54:47.406Z',
+        publishedAt: '2022-05-19T03:27:30.475Z',
+        location_page3: 'CarModelSELECTMASTERMODEL',
+      },
+    },
+    {
+      id: 32,
+      attributes: {
+        meta_title:
+          'Daihatsu Sigra 2022 Harga OTR Cicilan Kredit & Spesifikasi | SEVA',
+        meta_description:
+          'Beli mobil Daihatsu Sigra terbaru dengan dengan Instant Approval*. Proses Aman & Mudah✅ Terintegrasi dengan ACC & TAF✅ SEVA member of ASTRA',
+        createdAt: '2022-05-19T06:31:04.554Z',
+        updatedAt: '2022-09-21T09:55:13.395Z',
+        publishedAt: '2022-05-19T06:31:05.615Z',
+        location_page3: 'CarModelSELECTMASTERMODEL',
+      },
+    },
+    {
+      id: 28,
+      attributes: {
+        meta_title:
+          'Toyota New Venturer 2022 Harga OTR Cicilan Kredit & Spesifikasi | SEVA',
+        meta_description:
+          'Beli mobil Toyota New Venturer terbaru dengan dengan Instant Approval*. Proses Aman & Mudah✅ Terintegrasi dengan ACC & TAF✅ SEVA member of ASTRA',
+        createdAt: '2022-05-19T03:26:09.012Z',
+        updatedAt: '2022-09-21T09:54:14.810Z',
+        publishedAt: '2022-05-19T03:26:09.709Z',
+        location_page3: 'CarModelSELECTMASTERMODEL',
+      },
+    },
+    {
+      id: 22,
+      attributes: {
+        meta_title:
+          'Toyota All New Veloz 2022 Harga OTR Cicilan Kredit & Spesifikasi | SEVA',
+        meta_description:
+          'Beli mobil Toyota All New Veloz terbaru dengan dengan Instant Approval*. Proses Aman & Mudah✅ Terintegrasi dengan ACC & TAF✅ SEVA member of ASTRA',
+        createdAt: '2022-05-19T03:22:40.495Z',
+        updatedAt: '2022-09-21T09:52:53.812Z',
+        publishedAt: '2022-05-19T03:22:41.209Z',
+        location_page3: 'CarModelSELECTMASTERMODEL',
+      },
+    },
+  ]
+
   const [head, setHead] = useState<any>({
     attributes: {
-      meta_title: 'marcell',
-      meta_description: 'antonius',
+      meta_title:
+        'Daihatsu Gran Max Pickup 2022 Harga OTR Cicilan Kredit & Spesifikasi | SEVA',
+      meta_description:
+        'Beli mobil Daihatsu Gran Max Pickup terbaru dengan dengan Instant Approval*. Proses Aman & Mudah✅ Terintegrasi dengan ACC & TAF✅ SEVA member of ASTRA',
     },
   })
+  const router = useRouter()
 
   useEffect(() => {
-    getDataMeta()
+    // getDataMeta()
+    const params = router.query.id
+    const res = dataMetas.filter((item: any) => item.id == params)
+    setHead(res[0])
   }, [])
 
   const getDataMeta = async () => {
@@ -176,6 +265,7 @@ export async function getServerSideProps({ res }: any) {
     'Cache-Control',
     'public, s-maxage=10, stale-while-revalidate=59',
   )
+
   try {
     const [
       bannerRes,
@@ -188,7 +278,7 @@ export async function getServerSideProps({ res }: any) {
       mainArticleRes,
       typeCarRes,
       carofTheMonthRes,
-      annoucementBoxRes,
+      metaRes,
     ]: any = await Promise.all([
       api.getBanner(),
       api.getMenu(),
@@ -201,6 +291,7 @@ export async function getServerSideProps({ res }: any) {
       api.getTypeCar('?city=jakarta'),
       api.getCarofTheMonth(),
       api.getAnnouncementBox(),
+      api.getMetaTitle(),
     ])
     const [
       dataBanner,
@@ -213,6 +304,7 @@ export async function getServerSideProps({ res }: any) {
       dataMainArticle,
       dataTypeCar,
       dataCarofTheMonth,
+      // dataMeta,
     ] = await Promise.all([
       bannerRes.data,
       menuRes.data,
@@ -224,6 +316,7 @@ export async function getServerSideProps({ res }: any) {
       mainArticleRes,
       typeCarRes,
       carofTheMonthRes.data,
+      // metaRes.data,
     ])
     return {
       props: {
@@ -237,6 +330,7 @@ export async function getServerSideProps({ res }: any) {
         dataMainArticle,
         dataTypeCar,
         dataCarofTheMonth,
+        // dataMeta,
       },
     }
   } catch (error) {
