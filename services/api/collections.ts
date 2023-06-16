@@ -5,6 +5,7 @@ const utils = {
   usage: 'https://api.sslpots.com/api/how-to-use-seva-config?populate=*',
   banner: 'https://api.seva.id/banner-image/homepage',
   announcementBox: 'https://api.seva.id/announcement-box',
+  meta: 'https://api.sslpots.com/api/meta-seos/?filters[master_model][model_code][$contains]=',
 }
 
 const product = {

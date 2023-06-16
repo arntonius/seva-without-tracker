@@ -53,6 +53,7 @@ const getConfigToken = () => {
   return config
 }
 // get request
+const getMetaTitle = () => get(collections.utils.meta)
 const getMenu = () => get(collections.utils.menu)
 const getCities = () => get(collections.utils.cities)
 const getTestimony = () => get(collections.utils.testimonials)
@@ -94,4 +95,5 @@ export const api = {
   getUserInfo,
   postUnverfiedLeads,
   postRefreshToken,
+  getMetaTitle,
 }
