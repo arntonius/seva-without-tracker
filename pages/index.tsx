@@ -104,7 +104,12 @@ export default function Index({
     }
   }
 
-  const [head, setHead] = useState<any>()
+  const [head, setHead] = useState<any>({
+    attributes: {
+      meta_title: 'marcell',
+      meta_description: 'antonius',
+    },
+  })
 
   useEffect(() => {
     getDataMeta()
@@ -120,9 +125,9 @@ export default function Index({
   return (
     <>
       <Head>
-        <title>{head?.attributes.meta_title}</title>
-        <meta name="title" content={head?.attributes.meta_title} />
-        <meta name="description" content={head?.attributes.meta_description} />
+        <title>{head.attributes.meta_title}</title>
+        <meta name="title" content={head.attributes.meta_title} />
+        <meta name="description" content={head.attributes.meta_description} />
         <link rel="icon" href="/favicon.png" />
       </Head>
       <main className={styles.main}>
